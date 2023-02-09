@@ -26,16 +26,12 @@
     const { seconds } = params;
 
     function doDate() {
-      var now = new Date();
 
       var options = {
         hour: '2-digit', minute: '2-digit', second: seconds ? '2-digit' : undefined
       };
 
-      var str = now.toLocaleDateString("de-DE", options)
-
-
-      document.getElementById("time").innerHTML = str;
+      document.getElementById("time").innerHTML = new Date().toLocaleDateString([], options)
     }
 
     setInterval(doDate, 1000);
