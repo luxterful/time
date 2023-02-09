@@ -1,39 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <style>
-      body {
-        background-color: black;
-      }
-      #time {
-        text-align: center;
-        font-size: 25.5vw;
-        color: white;
-        font-family: Arial, Helvetica, sans-serif;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="time">...</div>
-    <script>
-      const params = new Proxy(new URLSearchParams(window.location.search), {
-        get: (searchParams, prop) => searchParams.get(prop),
-      });
 
-      const { seconds } = params;
+<head>
+  <style>
+    body {
+      background-color: black;
+    }
 
-      function doDate() {
-        var now = new Date();
-        var str = now.getHours() + ":" + now.getMinutes();
+    #time {
+      text-align: center;
+      font-size: 25.5vw;
+      color: white;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  </style>
+</head>
 
-        if (seconds) {
-          str += ":" + now.getSeconds();
-        }
+<body>
+  <div id="time">...</div>
+  <script>
+    const params = new Proxy(new URLSearchParams(window.location.search), {
+      get: (searchParams, prop) => searchParams.get(prop),
+    });
 
-        document.getElementById("time").innerHTML = str;
-      }
+    const { seconds } = params;
 
-      setInterval(doDate, 1000);
-    </script>
-  </body>
+    function doDate() {
+      var now = new Date();
+
+      var options = {
+        hour: '2-digit', minute: '2-digit', second: seconds ? '2-digit' : undefined
+      };
+
+      var str = now.toLocaleDateString("de-DE", options)
+
+
+      document.getElementById("time").innerHTML = str;
+    }
+
+    setInterval(doDate, 1000);
+  </script>
+</body>
+
 </html>
